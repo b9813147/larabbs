@@ -40,3 +40,4 @@
         </div>
     </div>
 @stop
+{{--add_avatar_and_introduction_to_users_table--}}
