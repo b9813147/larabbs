@@ -6,7 +6,6 @@
 /vendor
 .DS_Store
 /.idea
-.idea*
 .env
 .phpunit.result.cache
 Homestead.json
