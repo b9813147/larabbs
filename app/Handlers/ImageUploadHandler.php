@@ -3,7 +3,7 @@
 namespace App\Handlers;
 
 
-use Intervention\Image\Image;
+use Intervention\Image\Facades\Image;
 
 class ImageUploadHandler
 {
