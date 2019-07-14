@@ -30,12 +30,12 @@
 
                             <div class="form-group">
                                 <input class="form-control" type="text" name="title"
-                                       value="{{ old('title', $topic->title ) }}" placeholder="請填寫標題" required
+                                       value="{{ old('title', $topic->title ) }}" placeholder="請填寫標題"
                                 />
                             </div>
 
                             <div class="form-group">
-                                <select class="form-control" name="category_id" required>
+                                <select class="form-control" name="category_id" >
                                     <option value="" hidden disabled selected>請選擇分類</option>
                                     @foreach ($categories as $value)
                                         <option value="{{ $value->id }}">{{ $value->name }}</option>
@@ -46,7 +46,7 @@
                             <div class="form-group">
                                     <textarea name="body" class="form-control" id="editor" rows="6"
                                               placeholder="請填入至少三個字符的內容。"
-                                              required>{{ old('body', $topic->body ) }}
+                                              >{{ old('body', $topic->body ) }}
                                     </textarea>
                             </div>
 
