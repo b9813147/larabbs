@@ -46,7 +46,9 @@ class TopicsController extends Controller
     public function edit(Topic $topic)
     {
         $this->authorize('update', $topic);
-        return view('topics.create_and_edit', compact('topic'));
+        $categories = Category::all();
+
+        return view('topics.create_and_edit', compact('topic', 'categories'));
     }
 
     public function update(TopicRequest $request, Topic $topic)
@@ -70,7 +72,7 @@ class TopicsController extends Controller
         // 初始化返回數據，預設是失败的
         $data = (object)[
             'success'   => false,
-            'msg'       => '上传失败!',
+            'msg'       => '上傳失敗!',
             'file_path' => ''
         ];
 
@@ -81,7 +83,7 @@ class TopicsController extends Controller
             //圖片保存成功的話
             if ($result) {
                 $data->success   = true;
-                $data->msg       = '上傳成功';
+                $data->msg       = '上傳成功！';
                 $data->file_path = $result['path'];
             }
         }
