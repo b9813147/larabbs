@@ -22,41 +22,41 @@
                     @if($topic->id)
                         <form action="{{ route('topics.update', $topic->id) }}" method="POST" accept-charset="UTF-8">
                             <input type="hidden" name="_method" value="PUT">
-                    @else
-                        <form action="{{ route('topics.store') }}" method="POST" accept-charset="UTF-8">
-                    @endif
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            @else
+                                <form action="{{ route('topics.store') }}" method="POST" accept-charset="UTF-8">
+                                    @endif
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                            @include('shared._error')
+                                    @include('shared._error')
 
-                            <div class="form-group">
-                                <input class="form-control" type="text" name="title"
-                                       value="{{ old('title', $topic->title ) }}" placeholder="請填寫標題"
-                                />
-                            </div>
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="title"
+                                               value="{{ old('title', $topic->title ) }}" placeholder="請填寫標題"
+                                        />
+                                    </div>
 
-                            <div class="form-group">
-                                <select class="form-control" name="category_id" >
-                                    <option value="" hidden disabled selected>請選擇分類</option>
-                                    @foreach ($categories as $value)
-                                        <option value="{{ $value->id }}">{{ $value->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                                    <div class="form-group">
+                                        <select class="form-control" name="category_id">
+                                            <option value="" hidden disabled selected>請選擇分類</option>
+                                            @foreach ($categories as $value)
+                                                <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
 
-                            <div class="form-group">
+                                    <div class="form-group">
                                     <textarea name="body" class="form-control" id="editor" rows="6"
                                               placeholder="請填入至少三個字符的內容。"
-                                              >{{ old('body', $topic->body ) }}
+                                    >{{ old('body', $topic->body ) }}
                                     </textarea>
-                            </div>
+                                    </div>
 
-                            <div class="well well-sm">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="far fa-save mr-2" aria-hidden="true"></i> 保存
-                                </button>
-                            </div>
-                        </form>
+                                    <div class="well well-sm">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="far fa-save mr-2" aria-hidden="true"></i> 保存
+                                        </button>
+                                    </div>
+                                </form>
                 </div>
             </div>
         </div>
@@ -64,16 +64,30 @@
 @endsection
 @section('scripts')
 
+{{--    <script type="text/javascript" src="{{ asset('js/module.js') }}"></script>--}}
+{{--    <script type="text/javascript" src="{{ asset('js/hotkeys.js') }}"></script>--}}
+{{--    <script type="text/javascript" src="{{ asset('js/uploader.js') }}"></script>--}}
+{{--    <script type="text/javascript" src="{{ asset('js/simditor.js') }}"></script>--}}
     <script type="text/javascript" src="{{ asset('js/module.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/hotkeys.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/uploader.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/simditor.js') }}"></script>
 
     <script>
-      $(document).ready(function() {
+      $(document).ready(function () {
         const editor = new Simditor({
-          textarea: $('#editor'),
-        });
-      });
+          textarea  : $('#editor'),
+          upload    : {
+            url            : `{{ route('topics.upload_image') }}`,
+            params         : {
+              _token: `{{ csrf_token() }}`
+            },
+            fileKey        : 'upload_file',
+            connectionCount: 3,
+            leaveConfirm   : '文件上傳中，關閉此頁面將取消上傳。'
+          },
+          pasteImage: true,
+        })
+      })
     </script>
 @stop
